@@ -5,11 +5,12 @@ from unittest.mock import patch, Mock
 import importer
 
 
+@patch('importer.SPREADSHEET_ID', 'dummy_spreadsheet_id')
+@patch('importer.GOOGLE_CREDENTIALS', {'dummy': 'credentials'})
 class TestImporter(unittest.TestCase):
 
     @patch('importer.build')
     @patch('importer.Credentials.from_service_account_info')
-    @patch('importer.GOOGLE_CREDENTIALS', {'dummy': 'credentials'})
     def test_initialize_api_client(self, MockCredentials, MockBuild):
         MockCredentials.return_value = Mock()
         MockBuild.return_value = Mock()
@@ -17,7 +18,6 @@ class TestImporter(unittest.TestCase):
         self.assertIsNotNone(service)
 
     @patch('importer.build')
-    @patch('importer.SPREADSHEET_ID', 'dummy_spreadsheet_id')
     def test_get_spreadsheet_data(self, MockBuild):
         mock_service = Mock()
         mock_sheet = Mock()
