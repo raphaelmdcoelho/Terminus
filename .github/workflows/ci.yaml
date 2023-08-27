@@ -1,0 +1,46 @@
+name: Terminus CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  python-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install -r src/importer-old-expenses/requirements.txt
+
+    - name: Run Python tests
+      run: python -m unittest discover src/importer-old-expenses
+
+  dotnet-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '7.x'
+
+    - name: Restore dependencies
+      run: dotnet restore src/Terminus/Terminus.sln
+
+    - name: Run .NET tests
+      run: dotnet test src/Terminus/Terminus.sln
