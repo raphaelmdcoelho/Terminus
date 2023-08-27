@@ -40,7 +40,7 @@ jobs:
         dotnet-version: '7.x'
 
     - name: Restore dependencies
-      run: dotnet restore src/Terminus/Terminus.sln
+      run: dotnet restore src/terminus/Terminus.sln
 
     - name: Run .NET tests
-      run: dotnet test src/Terminus/Terminus.sln
+      run: dotnet test src/terminus/Terminus.sln
