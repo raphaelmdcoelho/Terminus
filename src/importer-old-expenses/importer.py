@@ -1,7 +1,11 @@
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from filters import apply_all_filters
-from config import SPREADSHEET_ID, GOOGLE_CREDENTIALS
+try:
+    from config import SPREADSHEET_ID, GOOGLE_CREDENTIALS
+except ModuleNotFoundError:
+    SPREADSHEET_ID = "fallback_spreadsheet_id"
+    GOOGLE_CREDENTIALS = {"fallback": "credentials"}
 
 
 def initialize_api_client():
